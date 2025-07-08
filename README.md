@@ -86,140 +86,116 @@
     </main>
   </section>
 </body>
-</html>// style.css
+// Show Auth from Landing
+document.getElementById("getStartedBtn").addEventListener("click", () => {
+  document.getElementById("landing").classList.remove("active-section");
+  document.getElementById("landing").classList.add("hidden");
+  document.getElementById("auth").classList.remove("hidden");
+});
 
-body { margin: 0; font-family: 'Inter', sans-serif; background-color: #f4f6f8; color: #333; }
-
-h1, h2, h3, p { margin: 0 0 10px 0; }
-
-.container { max-width: 800px; margin: 0 auto; padding: 20px; text-align: center; }
-
-.center-column { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-
-.landing-img, .dashboard-img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); animation: zoomIn 0.6s ease; }
-
-.btn-primary, .btn-secondary { padding: 10px 20px; font-size: 16px; margin: 10px; border: none; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
-
-.btn-primary { background-color: #0d6efd; color: #fff; }
-
-.btn-secondary { background-color: #6c757d; color: #fff; }
-
-.btn-primary:hover, .btn-secondary:hover { opacity: 0.9; }
-
-#auth, #dashboard, .content-section, .popup { display: none; }
-
-.active-section { display: block; }
-
-.auth-container { max-width: 400px; margin: auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-
-.auth-tabs { display: flex; justify-content: center; margin-bottom: 20px; }
-
-.tab-btn { padding: 10px; cursor: pointer; border: none; background: transparent; font-weight: bold; transition: color 0.3s; }
-
-.tab-btn.active { color: #0d6efd; border-bottom: 2px solid #0d6efd; }
-
-.form-group { margin-bottom: 15px; text-align: left; }
-
-input, select { width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc; }
-
-aside#sidebar { width: 220px; background: #0d6efd; color: white; height: 100vh; position: fixed; padding: 20px; box-shadow: 2px 0 5px rgba(0,0,0,0.1); animation: slideInLeft 0.5s; }
-
-#content-area { margin-left: 220px; padding: 20px; }
-
-.sidebar-btn { display: block; width: 100%; background: transparent; color: white; text-align: left; border: none; padding: 10px; font-size: 16px; cursor: pointer; }
-
-.content-section { animation: fadeIn 0.5s ease; }
-
-.popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-@keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-@keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }
-
-/* --- JS (script.js) --- */
-
-// script.js
-
-document.addEventListener("DOMContentLoaded", () => { const startBtn = document.getElementById("startEarnBtn"); const landing = document.getElementById("landing"); const auth = document.getElementById("auth"); const loginTab = document.querySelector('[data-tab="login"]'); const registerTab = document.querySelector('[data-tab="register"]'); const loginForm = document.getElementById("loginForm"); const registerForm = document.getElementById("registerForm"); const dashboard = document.getElementById("dashboard"); const logoutBtn = document.getElementById("logoutBtn");
-
-startBtn.addEventListener("click", () => { landing.classList.remove("active-section"); auth.classList.add("active-section"); });
-
-loginTab.addEventListener("click", () => { loginTab.classList.add("active"); registerTab.classList.remove("active"); loginForm.classList.add("active"); registerForm.classList.remove("active"); });
-
-registerTab.addEventListener("click", () => { registerTab.classList.add("active"); loginTab.classList.remove("active"); registerForm.classList.add("active"); loginForm.classList.remove("active"); });
-
-loginForm.addEventListener("submit", (e) => { e.preventDefault(); const username = document.getElementById("loginUsername").value; document.getElementById("userDisplayName").textContent = username; document.getElementById("accUsername").textContent = username; auth.classList.remove("active-section"); dashboard.classList.add("active-section"); });
-
-registerForm.addEventListener("submit", (e) => { e.preventDefault(); const username = document.getElementById("regUsername").value; const phone = document.getElementById("regPhone").value; document.getElementById("userDisplayName").textContent = username; document.getElementById("accUsername").textContent = username; document.getElementById("accPhone").textContent = phone; auth.classList.remove("active-section"); dashboard.classList.add("active-section"); });
-
-logoutBtn.addEventListener("click", () => { dashboard.classList.remove("active-section"); landing.classList.add("active-section"); });
-
-// Sidebar Navigation const sidebarBtns = document.querySelectorAll(".sidebar-btn"); const contentSections = document.querySelectorAll(".content-section");
-
-sidebarBtns.forEach(btn => { btn.addEventListener("click", () => { const target = btn.dataset.section;
-
-contentSections.forEach(section => {
-    section.classList.remove("active");
+// Tab Switch
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".tab-content").forEach(c => c.classList.add("hidden"));
+    tab.classList.add("active");
+    document.getElementById(tab.dataset.tab + "Tab").classList.remove("hidden");
   });
-
-  document.getElementById(target).classList.add("active");
 });
 
+// Login Button → Show Dashboard
+document.getElementById("loginBtn").addEventListener("click", () => {
+  document.getElementById("auth").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
 });
 
-// E-Wallet Save document.getElementById("saveEwalletBtn").addEventListener("click", () => { const number = document.getElementById("ewalletNumber").value; const bank = document.getElementById("ewalletBank").value; if (number && bank) { document.getElementById("ewalletSavedMsg").textContent = Saved: ${bank} - ${number}; } }); });
-
-// script.js
-
-// Page Navigation const startBtn = document.getElementById("startEarnBtn"); const landing = document.getElementById("landing"); const auth = document.getElementById("auth"); const dashboard = document.getElementById("dashboard");
-
-const loginForm = document.getElementById("loginForm"); const registerForm = document.getElementById("registerForm");
-
-const authTabs = document.querySelectorAll(".tab-btn"); const authContents = document.querySelectorAll(".tab-content");
-
-const sidebarButtons = document.querySelectorAll(".sidebar-btn"); const contentSections = document.querySelectorAll(".content-section");
-
-// Show Auth Page startBtn.addEventListener("click", () => { landing.classList.add("hidden"); auth.classList.remove("hidden"); });
-
-// Auth Tabs Switch authTabs.forEach((tab) => { tab.addEventListener("click", () => { authTabs.forEach((t) => t.classList.remove("active")); tab.classList.add("active");
-
-const selected = tab.getAttribute("data-tab");
-authContents.forEach((form) => {
-  form.classList.add("hidden");
-  if (form.id === selected + "Form") {
-    form.classList.remove("hidden");
-  }
+// Sidebar Menu Navigation
+document.querySelectorAll(".menu-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".content-section").forEach(sec => sec.classList.add("hidden"));
+    document.getElementById(btn.dataset.section + "Section").classList.remove("hidden");
+  });
 });
 
-}); });
+// Logout → Back to Login
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  document.getElementById("dashboard").classList.add("hidden");
+  document.getElementById("auth").classList.remove("hidden");
+});body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+}
 
-// Login Logic (Dummy Example) loginForm.addEventListener("submit", (e) => { e.preventDefault(); const username = document.getElementById("loginUsername").value; document.getElementById("userDisplayName").innerText = username; document.getElementById("accUsername").innerText = username; document.getElementById("accUID").innerText = "ID" + Math.floor(Math.random() * 1000000); document.getElementById("accPhone").innerText = "+8801XXXXXXXXX"; auth.classList.add("hidden"); dashboard.classList.remove("hidden"); });
+.hidden {
+  display: none;
+}
 
-// Sidebar Navigation sidebarButtons.forEach((btn) => { btn.addEventListener("click", () => { sidebarButtons.forEach((b) => b.classList.remove("active")); btn.classList.add("active");
+.active-section {
+  display: block;
+}
 
-const section = btn.getAttribute("data-section");
-contentSections.forEach((sec) => {
-  sec.classList.remove("active");
-});
-document.getElementById(section).classList.add("active");
+.container {
+  text-align: center;
+  padding: 30px;
+}
 
-}); });
+.landing-img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+}
 
-// Save E-Wallet const saveEwalletBtn = document.getElementById("saveEwalletBtn"); const ewalletMsg = document.getElementById("ewalletSavedMsg"); saveEwalletBtn.addEventListener("click", () => { const num = document.getElementById("ewalletNumber").value; const bank = document.getElementById("ewalletBank").value; ewalletMsg.textContent = Saved: ${num} (${bank}); });
+.btn-primary {
+  background: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
-// Watch Ads Logic const adBtn = document.getElementById("watchAdBtn"); const adPopup = document.getElementById("adPopup"); const adTimer = document.getElementById("adTimer"); const closePopupBtns = document.querySelectorAll(".closePopupBtn");
+.auth-container {
+  max-width: 400px;
+  margin: 50px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
 
-adBtn.addEventListener("click", () => { adPopup.classList.remove("hidden"); let seconds = 5; adTimer.textContent = seconds; const interval = setInterval(() => { seconds--; adTimer.textContent = seconds; if (seconds <= 0) { clearInterval(interval); } }, 1000); });
+.auth-container input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+}
 
-closePopupBtns.forEach((btn) => { btn.addEventListener("click", () => { btn.parentElement.classList.add("hidden"); }); });
+.tab {
+  padding: 10px;
+  margin-right: 10px;
+  background: #ddd;
+  border: none;
+  border-radius: 5px;
+}
 
-// Deposit/Withdraw Buttons const depositBtns = document.querySelectorAll('[data-method]'); const depositPopup = document.getElementById("depositPopup"); const withdrawPopup = document.getElementById("withdrawPopup");
+.tab.active {
+  background: #4caf50;
+  color: white;
+}
 
-const depositMethodText = document.getElementById("depositMethod"); const withdrawMethodText = document.getElementById("withdrawMethod");
+#sidebar {
+  width: 200px;
+  background: #222;
+  color: white;
+  height: 100vh;
+  float: left;
+  padding: 20px;
+}
 
-depositBtns.forEach((btn) => { btn.addEventListener("click", () => { const method = btn.getAttribute("data-method"); if (btn.textContent.includes("📥")) { depositMethodText.textContent = method; depositPopup.classList.remove("hidden"); } else if (btn.textContent.includes("📤")) { withdrawMethodText.textContent = method; withdrawPopup.classList.remove("hidden"); } }); });
-
-// Logout const logoutBtn = document.getElementById("logoutBtn"); logoutBtn.addEventListener("click", () => { dashboard.classList.add("hidden"); landing.classList.remove("hidden"); });
+#mainContent {
+  margin-left: 220px;
+  padding: 20px;
+}
 
